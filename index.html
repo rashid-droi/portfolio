@@ -190,6 +190,18 @@
          transform: translateX(10px);
       }
 
+      /* mobile menu animation */
+      .mobile-menu-enter {
+         max-height: 0;
+         opacity: 0;
+         overflow: hidden;
+         transition: max-height 0.3s ease, opacity 0.2s ease;
+      }
+      .mobile-menu-enter-active {
+         max-height: 300px;
+         opacity: 1;
+      }
+
       @media (max-width: 768px) {
          .timeline::before {
             left: 0;
@@ -202,40 +214,62 @@
          .timeline-item::before {
             left: -16px;
          }
+
+         .hero-title {
+            font-size: 3rem;
+         }
       }
    </style>
 </head>
 
 <body class="bg-gray-50">
-   <!-- Navigation -->
+   <!-- Navigation with mobile menu -->
    <nav class="sticky top-0 z-50 bg-white bg-opacity-95 backdrop-blur-md shadow-lg">
-      <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-         <div class="flex items-center gap-2">
-            <div
-               class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-               <i class="fas fa-code text-white text-lg"></i>
+      <div class="max-w-6xl mx-auto px-4 py-4">
+         <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+               <div
+                  class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-code text-white text-lg"></i>
+               </div>
+               <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Rashid Ali</h1>
             </div>
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-               Rashid Ali</h1>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex gap-8 text-gray-700 font-medium">
+               <a href="#profile" class="hover:text-blue-600 transition duration-300 relative group"> Profile <span
+                     class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+               </a>
+               <a href="#experience" class="hover:text-blue-600 transition duration-300 relative group"> Experience <span
+                     class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+               </a>
+               <a href="#skills" class="hover:text-blue-600 transition duration-300 relative group"> Skills <span
+                     class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+               </a>
+               <a href="#contact" class="hover:text-blue-600 transition duration-300 relative group"> Contact <span
+                     class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+               </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none text-2xl">
+               <i class="fas fa-bars"></i>
+            </button>
          </div>
-         <div class="flex gap-8 text-gray-700 font-medium">
-            <a href="#profile" class="hover:text-blue-600 transition duration-300 relative group"> Profile <span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#experience" class="hover:text-blue-600 transition duration-300 relative group"> Experience <span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#skills" class="hover:text-blue-600 transition duration-300 relative group"> Skills <span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#contact" class="hover:text-blue-600 transition duration-300 relative group"> Contact <span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-            </a>
+
+         <!-- Mobile Menu (hidden by default) -->
+         <div id="mobile-menu" class="md:hidden hidden mt-4 pb-2 flex flex-col gap-3 text-gray-700 font-medium border-t border-gray-200 pt-4">
+            <a href="#profile" class="hover:text-blue-600 transition py-2 px-2 rounded hover:bg-blue-50" onclick="toggleMobileMenu()">Profile</a>
+            <a href="#experience" class="hover:text-blue-600 transition py-2 px-2 rounded hover:bg-blue-50" onclick="toggleMobileMenu()">Experience</a>
+            <a href="#skills" class="hover:text-blue-600 transition py-2 px-2 rounded hover:bg-blue-50" onclick="toggleMobileMenu()">Skills</a>
+            <a href="#contact" class="hover:text-blue-600 transition py-2 px-2 rounded hover:bg-blue-50" onclick="toggleMobileMenu()">Contact</a>
          </div>
       </div>
    </nav>
+
    <!-- Hero Section -->
-   <section class="relative overflow-hidden py-24 px-4">
+   <section class="relative overflow-hidden py-16 md:py-24 px-4">
       <div class="absolute inset-0 z-0">
          <div
             class="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
@@ -256,23 +290,22 @@
                      class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-2xl opacity-30 animate-pulse-glow">
                   </div>
                   <img src="profile.jpeg" alt="Rashid Ali"
-                     class="w-64 h-64 rounded-full border-8 border-white shadow-2xl object-cover relative z-10 animate-float">
+                     class="w-48 h-48 sm:w-64 sm:h-64 rounded-full border-8 border-white shadow-2xl object-cover relative z-10 animate-float">
                </div>
             </div>
             <!-- Hero Content -->
-            <div class="lg:w-2/3 animate-slide-left">
+            <div class="lg:w-2/3 animate-slide-left text-center lg:text-left">
                <span class="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
                   <i class="fas fa-star mr-2"></i> Welcome to My Portfolio </span>
-               <h2
-                  class="text-6xl lg:text-7xl font-black mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+               <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Rashid Ali </h2>
-               <p class="text-3xl font-bold text-gray-700 mb-6">
+               <p class="text-2xl sm:text-3xl font-bold text-gray-700 mb-6">
                   <i class="fas fa-mobile-alt text-blue-600 mr-2"></i> Flutter Developer
                </p>
-               <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-2xl"> Enthusiastic Flutter Developer with a
+               <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0"> Enthusiastic Flutter Developer with a
                   solid foundation in Dart, Flutter, and UI design. Eager to apply skills in cross-platform mobile app
                   development and grow as part of an innovative software team. </p>
-               <div class="flex flex-wrap gap-4">
+               <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
                   <a href="mailto:rashidalivvr087@gmail.com"
                      class="btn-primary text-white px-8 py-3 rounded-lg font-bold flex items-center gap-2 shadow-lg">
                      <i class="fas fa-envelope"></i> Get In Touch </a>
@@ -280,13 +313,14 @@
                      class="px-8 py-3 rounded-lg font-bold border-2 border-blue-600 text-blue-600 hover:bg-blue-50 transition duration-300 flex items-center gap-2">
                      <i class="fas fa-arrow-down"></i> Learn More </a>
                </div>
-               <div class="flex gap-6 mt-10">
+               <!-- Stats with updated numbers -->
+               <div class="flex gap-6 mt-10 justify-center lg:justify-start">
                   <div class="text-center">
-                     <p class="text-3xl font-bold text-blue-600">2+</p>
+                     <p class="text-3xl font-bold text-blue-600">3+</p>
                      <p class="text-gray-600">Projects Completed</p>
                   </div>
                   <div class="text-center">
-                     <p class="text-3xl font-bold text-purple-600">5 months</p>
+                     <p class="text-3xl font-bold text-purple-600">7 months</p>
                      <p class="text-gray-600">Experience</p>
                   </div>
                </div>
@@ -294,10 +328,11 @@
          </div>
       </div>
    </section>
+
    <!-- Profile Section -->
-   <section id="profile" class="py-20 px-4 bg-white">
+   <section id="profile" class="py-16 md:py-20 px-4 bg-white">
       <div class="max-w-6xl mx-auto">
-         <h3 class="text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
+         <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
             <i class="fas fa-user-circle text-blue-600 text-3xl"></i> About Me
          </h3>
          <div class="grid lg:grid-cols-2 gap-12">
@@ -355,16 +390,18 @@
          </div>
       </div>
    </section>
-   <!-- Experience Section -->
-   <section id="experience" class="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
+
+   <!-- Experience Section (including new Design Pods) -->
+   <section id="experience" class="py-16 md:py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
       <div class="max-w-6xl mx-auto">
-         <h3 class="text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
+         <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
             <i class="fas fa-briefcase text-blue-600 text-3xl"></i> Professional Experience
          </h3>
          <div class="timeline space-y-8">
-            <!-- Experience 1 -->
+            <!-- Experience 1: Progress File -->
             <div class="timeline-item relative pl-12 bg-white p-6 rounded-xl shadow-md experience-card">
-               <div class="flex justify-between items-start mb-4">
+                <a href="https://github.com/rashid-droi/Progress-File" target="_blank">
+               <div class="flex justify-between items-start mb-4 flex-wrap gap-2">
                   <div>
                      <h4 class="text-2xl font-bold text-gray-800">Progress File</h4>
                      <p class="text-gray-600 text-sm mt-1">Freelance Project</p>
@@ -391,130 +428,126 @@
                         API</span>
                   </div>
                </div>
+               </a>
             </div>
-            <!-- Experience 2 -->
-            <div class="timeline-item relative pl-12 bg-white p-6 rounded-xl shadow-md experience-card">
-               <div class="flex justify-between items-start mb-4">
+
+            <!-- Experience 2: Adkar Application -->
+         <div>
+            <a href="https://github.com/rashid-droi/adhkar" target="_blank">
+            <div class="timeline-item relative pl-12 bg-white p-6 rounded-xl shadow-md experience-card cursor-pointer">
+               
+               <div class="flex justify-between items-start mb-4 flex-wrap gap-2">
                   <div>
-                     <h4 class="text-2xl font-bold text-gray-800">Adkar Application</h4>
+                  <h4 class="text-2xl font-bold text-gray-800">Adkar Application</h4>
+                  <p class="text-gray-600 text-sm mt-1">Freelance Project</p>
+                  </div>
+                  <span class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+                  2 months
+                  </span>
+               </div>
+
+               <div class="space-y-3">
+                  <p class="text-gray-700 flex items-center gap-2">
+                  <i class="fas fa-star text-yellow-400"></i> Built complete Firebase backend with authentication
+                  </p>
+                  <p class="text-gray-700 flex items-center gap-2">
+                  <i class="fas fa-star text-yellow-400"></i> Real-time data synchronization using Firestore
+                  </p>
+                  <p class="text-gray-700 flex items-center gap-2">
+                  <i class="fas fa-star text-yellow-400"></i> Cloud storage integration for media files
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Flutter</span>
+                  <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Firebase</span>
+                  <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Firestore</span>
+                  </div>
+               </div>
+
+            </div>
+            </a>
+         </div>
+
+            <!-- Experience 3: Design Pods (NEW) -->
+            <div class="timeline-item relative pl-12 bg-white p-6 rounded-xl shadow-md experience-card">
+               <div class="flex justify-between items-start mb-4 flex-wrap gap-2">
+                  <div>
+                     <h4 class="text-2xl font-bold text-gray-800">Design Pods</h4>
                      <p class="text-gray-600 text-sm mt-1">Freelance Project</p>
                   </div>
                   <span
-                     class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold">2
+                     class="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-bold">2
                      months</span>
                </div>
                <div class="space-y-3">
                   <p class="text-gray-700 flex items-center gap-2">
-                     <i class="fas fa-star text-yellow-400"></i> Built complete Firebase backend with authentication
+                     <i class="fas fa-star text-yellow-400"></i> Implemented pixel-perfect UI designs from Figma prototypes
                   </p>
                   <p class="text-gray-700 flex items-center gap-2">
-                     <i class="fas fa-star text-yellow-400"></i> Real-time data synchronization using Firestore
+                     <i class="fas fa-star text-yellow-400"></i> Built custom animations and transitions for interactive experience
                   </p>
                   <p class="text-gray-700 flex items-center gap-2">
-                     <i class="fas fa-star text-yellow-400"></i> Cloud storage integration for media files
+                     <i class="fas fa-star text-yellow-400"></i> Optimized app performance and responsive layouts for multiple devices
                   </p>
                   <div class="flex flex-wrap gap-2 mt-4">
-                     <span
-                        class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Flutter</span>
-                     <span
-                        class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Firebase</span>
-                     <span
-                        class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Firestore</span>
+                     <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-semibold">Flutter</span>
+                     <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-semibold">Dart</span>
+                     <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-semibold">UI/UX</span>
+                     <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-semibold">Animations</span>
                   </div>
                </div>
             </div>
          </div>
       </div>
    </section>
+
    <!-- Skills Section -->
-   <section id="skills" class="py-20 px-4 bg-white relative overflow-hidden">
+   <section id="skills" class="py-16 md:py-20 px-4 bg-white relative overflow-hidden">
       <div
          class="absolute top-0 right-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10">
       </div>
       <div class="max-w-6xl mx-auto relative z-10">
-         <h3 class="text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
+         <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
             <i class="fas fa-code text-blue-600 text-3xl"></i> Technical Skills
          </h3>
-         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Mobile Development -->
-            <div
-               class="skill-card bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl border-2 border-blue-200 hover:border-blue-400">
-               <div
-                  class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+            <div class="skill-card bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl border-2 border-blue-200 hover:border-blue-400">
+               <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
                   <i class="fas fa-mobile-alt text-white text-3xl"></i>
                </div>
                <h4 class="text-2xl font-bold text-gray-800 mb-4">Mobile Development</h4>
                <ul class="space-y-3">
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-blue-600"></i>
-                     <span>Flutter Framework</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-blue-600"></i>
-                     <span>Dart Programming</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-blue-600"></i>
-                     <span>Responsive Design</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-blue-600"></i>
-                     <span>State Management</span>
-                  </li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-blue-600"></i><span>Flutter Framework</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-blue-600"></i><span>Dart Programming</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-blue-600"></i><span>Responsive Design</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-blue-600"></i><span>State Management</span></li>
                </ul>
             </div>
             <!-- Backend & APIs -->
-            <div
-               class="skill-card bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl border-2 border-purple-200 hover:border-purple-400">
-               <div
-                  class="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+            <div class="skill-card bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl border-2 border-purple-200 hover:border-purple-400">
+               <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
                   <i class="fas fa-database text-white text-3xl"></i>
                </div>
                <h4 class="text-2xl font-bold text-gray-800 mb-4">Backend & APIs</h4>
                <ul class="space-y-3">
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-purple-600"></i>
-                     <span>Firebase Authentication</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-purple-600"></i>
-                     <span>Firestore Database</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-purple-600"></i>
-                     <span>REST API Integration</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-purple-600"></i>
-                     <span>Cloud Storage</span>
-                  </li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-purple-600"></i><span>Firebase Authentication</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-purple-600"></i><span>Firestore Database</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-purple-600"></i><span>REST API Integration</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-purple-600"></i><span>Cloud Storage</span></li>
                </ul>
             </div>
             <!-- Tools & IDEs -->
-            <div
-               class="skill-card bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl border-2 border-green-200 hover:border-green-400">
-               <div
-                  class="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+            <div class="skill-card bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl border-2 border-green-200 hover:border-green-400">
+               <div class="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
                   <i class="fas fa-tools text-white text-3xl"></i>
                </div>
                <h4 class="text-2xl font-bold text-gray-800 mb-4">Tools & IDEs</h4>
                <ul class="space-y-3">
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-green-600"></i>
-                     <span>GitHub & Git</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-green-600"></i>
-                     <span>Android Studio</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-green-600"></i>
-                     <span>Visual Studio Code</span>
-                  </li>
-                  <li class="flex items-center gap-3 text-gray-700">
-                     <i class="fas fa-check-circle text-green-600"></i>
-                     <span>Figma Design</span>
-                  </li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-green-600"></i><span>GitHub & Git</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-green-600"></i><span>Android Studio</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-green-600"></i><span>Visual Studio Code</span></li>
+                  <li class="flex items-center gap-3 text-gray-700"><i class="fas fa-check-circle text-green-600"></i><span>Figma Design</span></li>
                </ul>
             </div>
          </div>
@@ -522,220 +555,105 @@
          <div class="mt-16">
             <h4 class="text-2xl font-bold text-gray-800 mb-8">Proficiency Levels</h4>
             <div class="space-y-6">
-               <div>
-                  <div class="flex justify-between mb-2">
-                     <span class="font-semibold text-gray-700">Flutter & Dart</span>
-                     <span class="text-blue-600 font-bold">90%</span>
-                  </div>
-                  <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                     <div
-                        class="h-full bg-gradient-to-r from-blue-600 to-cyan-500 w-[90%] rounded-full transition-all duration-500">
-                     </div>
-                  </div>
-               </div>
-               <div>
-                  <div class="flex justify-between mb-2">
-                     <span class="font-semibold text-gray-700">Firebase Integration</span>
-                     <span class="text-purple-600 font-bold">85%</span>
-                  </div>
-                  <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                     <div
-                        class="h-full bg-gradient-to-r from-purple-600 to-pink-500 w-[85%] rounded-full transition-all duration-500">
-                     </div>
-                  </div>
-               </div>
-               <div>
-                  <div class="flex justify-between mb-2">
-                     <span class="font-semibold text-gray-700">REST API Integration</span>
-                     <span class="text-green-600 font-bold">80%</span>
-                  </div>
-                  <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                     <div
-                        class="h-full bg-gradient-to-r from-green-600 to-emerald-500 w-[80%] rounded-full transition-all duration-500">
-                     </div>
-                  </div>
-               </div>
+               <div><div class="flex justify-between mb-2"><span class="font-semibold text-gray-700">Flutter & Dart</span><span class="text-blue-600 font-bold">90%</span></div><div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-600 to-cyan-500 w-[90%] rounded-full transition-all duration-500"></div></div></div>
+               <div><div class="flex justify-between mb-2"><span class="font-semibold text-gray-700">Firebase Integration</span><span class="text-purple-600 font-bold">85%</span></div><div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-purple-600 to-pink-500 w-[85%] rounded-full transition-all duration-500"></div></div></div>
+               <div><div class="flex justify-between mb-2"><span class="font-semibold text-gray-700">REST API Integration</span><span class="text-green-600 font-bold">80%</span></div><div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-600 to-emerald-500 w-[80%] rounded-full transition-all duration-500"></div></div></div>
             </div>
          </div>
       </div>
    </section>
+
    <!-- Education Section -->
-   <section class="py-20 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
+   <section class="py-16 md:py-20 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
       <div class="max-w-6xl mx-auto">
-         <h3 class="text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
-            <i class="fas fa-graduation-cap text-blue-600 text-3xl"></i> Education
-         </h3>
+         <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3"><i class="fas fa-graduation-cap text-blue-600 text-3xl"></i> Education</h3>
          <div class="grid md:grid-cols-2 gap-8">
             <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition border-l-4 border-blue-600">
-               <div class="flex items-start justify-between mb-4">
-                  <div>
-                     <h4 class="text-2xl font-bold text-gray-800">BA Arabic</h4>
-                     <p class="text-gray-600 mt-2">University of Calicut</p>
-                  </div>
-                  <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-bold text-sm">2020 - 2023</span>
-               </div>
-               <p class="text-gray-600">PTM College Perinthalmanna</p>
-               <div class="mt-4 flex gap-2">
-                  <span class="inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Language
-                     Studies</span>
-                  <span class="inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Cultural
-                     Focus</span>
-               </div>
+               <div class="flex items-start justify-between mb-4 flex-wrap gap-2"><div><h4 class="text-2xl font-bold text-gray-800">BA Arabic</h4><p class="text-gray-600 mt-2">University of Calicut</p></div><span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-bold text-sm">2020 - 2023</span></div>
+               <p class="text-gray-600">PTM College Perinthalmanna</p><div class="mt-4 flex gap-2"><span class="inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Language Studies</span><span class="inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Cultural Focus</span></div>
             </div>
             <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition border-l-4 border-purple-600">
-               <div class="flex items-start justify-between mb-4">
-                  <div>
-                     <h4 class="text-2xl font-bold text-gray-800">Self-Learning</h4>
-                     <p class="text-gray-600 mt-2">Flutter & Mobile Development</p>
-                  </div>
-                  <span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg font-bold text-sm">Ongoing</span>
-               </div>
-               <p class="text-gray-600">Continuous learning through projects and online resources</p>
-               <div class="mt-4 flex gap-2">
-                  <span class="inline-block bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">Practical
-                     Skills</span>
-                  <span
-                     class="inline-block bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">Project-Based</span>
-               </div>
+               <div class="flex items-start justify-between mb-4 flex-wrap gap-2"><div><h4 class="text-2xl font-bold text-gray-800">Self-Learning</h4><p class="text-gray-600 mt-2">Flutter & Mobile Development</p></div><span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg font-bold text-sm">Ongoing</span></div>
+               <p class="text-gray-600">Continuous learning through projects and online resources</p><div class="mt-4 flex gap-2"><span class="inline-block bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">Practical Skills</span><span class="inline-block bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">Project-Based</span></div>
             </div>
          </div>
       </div>
    </section>
+
    <!-- Hobbies Section -->
-   <section class="py-20 px-4 bg-white">
+   <section class="py-16 md:py-20 px-4 bg-white">
       <div class="max-w-6xl mx-auto">
-         <h3 class="text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3">
-            <i class="fas fa-heart text-red-500 text-3xl"></i> Hobbies & Interests
-         </h3>
+         <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 section-title flex items-center gap-3"><i class="fas fa-heart text-red-500 text-3xl"></i> Hobbies & Interests</h3>
          <div class="grid md:grid-cols-2 gap-8">
-            <div
-               class="bg-gradient-to-br from-red-50 to-pink-50 p-8 rounded-2xl border-2 border-red-200 hover:border-red-400 transition skill-card">
-               <div
-                  class="w-16 h-16 bg-gradient-to-br from-red-600 to-pink-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                  <i class="fas fa-laptop-code text-white text-3xl"></i>
-               </div>
-               <h4 class="text-2xl font-bold text-gray-800 mb-2">Programming</h4>
-               <p class="text-gray-600">Building innovative solutions and exploring new technologies</p>
-            </div>
-            <div
-               class="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-2xl border-2 border-blue-200 hover:border-blue-400 transition skill-card">
-               <div
-                  class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                  <i class="fas fa-globe text-white text-3xl"></i>
-               </div>
-               <h4 class="text-2xl font-bold text-gray-800 mb-2">Traveling</h4>
-               <p class="text-gray-600">Exploring new cultures and gaining diverse perspectives</p>
-            </div>
+            <div class="bg-gradient-to-br from-red-50 to-pink-50 p-8 rounded-2xl border-2 border-red-200 hover:border-red-400 transition skill-card"><div class="w-16 h-16 bg-gradient-to-br from-red-600 to-pink-500 rounded-xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-laptop-code text-white text-3xl"></i></div><h4 class="text-2xl font-bold text-gray-800 mb-2">Programming</h4><p class="text-gray-600">Building innovative solutions and exploring new technologies</p></div>
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-2xl border-2 border-blue-200 hover:border-blue-400 transition skill-card"><div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-globe text-white text-3xl"></i></div><h4 class="text-2xl font-bold text-gray-800 mb-2">Traveling</h4><p class="text-gray-600">Exploring new cultures and gaining diverse perspectives</p></div>
          </div>
       </div>
    </section>
-   <!-- Contact Section -->
-   <section id="contact" class="py-20 px-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+
+   <!-- Contact Section (fixed email) -->
+   <section id="contact" class="py-16 md:py-20 px-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
       <div class="max-w-6xl mx-auto">
-         <h3 class="text-4xl font-bold text-white mb-12 flex items-center gap-3">
-            <i class="fas fa-envelope text-white text-3xl"></i> Get In Touch
-         </h3>
-         <div class="grid md:grid-cols-3 gap-8 mb-12">
-            <!-- Phone -->
-            <div
-               class="contact-box bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl border border-white border-opacity-20 hover:bg-opacity-20 text-white">
-               <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-                  <i class="fas fa-phone text-2xl"></i>
-               </div>
-               <h4 class="text-xl font-bold mb-2">Phone</h4>
-               <p class="text-blue-100"><a href="tel:+919947413492" class="hover:underline">+91 9947413492</a></p>
-            </div>
-            <!-- Email -->
-            <div
-               class="contact-box bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl border border-white border-opacity-20 hover:bg-opacity-20 text-white">
-               <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-                  <i class="fas fa-envelope text-2xl"></i>
-               </div>
-               <h4 class="text-xl font-bold mb-2">Email</h4>
-               <p class="text-blue-100"><a href="mailto:rashidalivvr087@gmail.com"
-                     class="hover:underline">rashidalivvr087@gmail.com</a></p>
-            </div>
-            <!-- Location -->
-            <div
-               class="contact-box bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl border border-white border-opacity-20 hover:bg-opacity-20 text-white">
-               <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-                  <i class="fas fa-map-marker-alt text-2xl"></i>
-               </div>
-               <h4 class="text-xl font-bold mb-2">Location</h4>
-               <p class="text-blue-100">Malappuram, Kerala, India</p>
-            </div>
+         <h3 class="text-3xl md:text-4xl font-bold text-white mb-12 flex items-center gap-3"><i class="fas fa-envelope text-white text-3xl"></i> Get In Touch</h3>
+         <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8 mb-12">
+            <div class="contact-box bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl border border-white border-opacity-20 hover:bg-opacity-20 text-white"><div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4"><i class="fas fa-phone text-2xl"></i></div><h4 class="text-xl font-bold mb-2">Phone</h4><p class="text-blue-100"><a href="tel:+919947413492" class="hover:underline">+91 9947413492</a></p></div>
+            <div class="contact-box bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl border border-white border-opacity-20 hover:bg-opacity-20 text-white"><div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4"><i class="fas fa-envelope text-2xl"></i></div><h4 class="text-xl font-bold mb-2">Email</h4><p class="text-blue-100"><a href="mailto:rashidalivvr087@gmail.com" class="hover:underline">rashidalivvr087@gmail.com</a></p></div>
+            <div class="contact-box bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-2xl border border-white border-opacity-20 hover:bg-opacity-20 text-white"><div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4"><i class="fas fa-map-marker-alt text-2xl"></i></div><h4 class="text-xl font-bold mb-2">Location</h4><p class="text-blue-100">Malappuram, Kerala, India</p></div>
          </div>
-         <!-- CTA Button -->
          <div class="text-center">
-            <a href="mailto:rashidalivivr087@gmail.com"
-               class="inline-block bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition transform hover:scale-105">
-               <i class="fas fa-envelope mr-2"></i> Send me an Email </a>
+            <a href="mailto:rashidalivvr087@gmail.com" class="inline-block bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition transform hover:scale-105"><i class="fas fa-envelope mr-2"></i> Send me an Email</a>
          </div>
       </div>
    </section>
+
    <!-- Quote Section -->
    <section class="py-16 px-4 bg-gray-900 relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10">
-         <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl"></div>
-         <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl"></div>
-      </div>
-      <div class="max-w-4xl mx-auto relative z-10 text-center">
-         <div class="text-6xl text-gray-600 mb-4">
-            <i class="fas fa-quote-left"></i>
-         </div>
-         <blockquote class="text-3xl font-bold text-white mb-4 leading-relaxed"> The best code is not necessarily the
-            fastest, but the one that works reliably—and I am committed to making it work. </blockquote>
-         <p class="text-gray-400 text-lg">Rashid Ali</p>
-      </div>
+      <div class="absolute inset-0 opacity-10"><div class="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl"></div><div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl"></div></div>
+      <div class="max-w-4xl mx-auto relative z-10 text-center"><div class="text-6xl text-gray-600 mb-4"><i class="fas fa-quote-left"></i></div><blockquote class="text-2xl md:text-3xl font-bold text-white mb-4 leading-relaxed"> The best code is not necessarily the fastest, but the one that works reliably—and I am committed to making it work. </blockquote><p class="text-gray-400 text-lg">Rashid Ali</p></div>
    </section>
-   <!-- Footer -->
+
+   <!-- Footer (fixed email) -->
    <footer class="bg-gray-950 text-gray-400 py-12 px-4 border-t border-gray-800">
       <div class="max-w-6xl mx-auto">
          <div class="grid md:grid-cols-3 gap-8 mb-8">
-            <!-- Brand -->
-            <div>
-               <h5 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                  <i class="fas fa-code text-blue-600"></i> Rashid Ali
-               </h5>
-               <p class="text-gray-500">Flutter Developer & Mobile App Enthusiast</p>
-            </div>
-            <!-- Quick Links -->
-            <div>
-               <h5 class="text-white font-bold mb-3">Quick Links</h5>
-               <ul class="space-y-2 text-sm">
-                  <li><a href="#profile" class="hover:text-white transition">Profile</a></li>
-                  <li><a href="#experience" class="hover:text-white transition">Experience</a></li>
-                  <li><a href="#skills" class="hover:text-white transition">Skills</a></li>
-                  <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
-               </ul>
-            </div>
-            <!-- Social Links -->
-            <div>
-               <h5 class="text-white font-bold mb-3">Connect</h5>
-               <div class="flex gap-4">
-                  <a href="mailto:rashidalivivr087@gmail.com"
-                     class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                     <i class="fas fa-envelope"></i>
-                  </a>
-                  <a href="https://github.com" target="_blank"
-                     class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                     <i class="fab fa-github"></i>
-                  </a>
-                  <a href="https://linkedin.com" target="_blank"
-                     class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                     <i class="fab fa-linkedin"></i>
-                  </a>
-               </div>
-            </div>
+            <div><h5 class="text-xl font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-code text-blue-600"></i> Rashid Ali</h5><p class="text-gray-500">Flutter Developer & Mobile App Enthusiast</p></div>
+            <div><h5 class="text-white font-bold mb-3">Quick Links</h5><ul class="space-y-2 text-sm"><li><a href="#profile" class="hover:text-white transition">Profile</a></li><li><a href="#experience" class="hover:text-white transition">Experience</a></li><li><a href="#skills" class="hover:text-white transition">Skills</a></li><li><a href="#contact" class="hover:text-white transition">Contact</a></li></ul></div>
+            <div><h5 class="text-white font-bold mb-3">Connect</h5><div class="flex gap-4"><a href="mailto:rashidalivvr087@gmail.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition"><i class="fas fa-envelope"></i></a><a href="https://github.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-github"></i></a><a href="https://linkedin.com" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-linkedin"></i></a></div></div>
          </div>
-         <div class="border-t border-gray-800 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center text-sm">
-               <p>&copy; 2025 Rashid Ali. All rights reserved.</p>
-               <p>Crafted with <span class="text-red-500"><i class="fas fa-heart"></i></span> by Rashid Ali</p>
-            </div>
-         </div>
+         <div class="border-t border-gray-800 pt-8"><div class="flex flex-col md:flex-row justify-between items-center text-sm"><p>&copy; 2025 Rashid Ali. All rights reserved.</p><p>Crafted with <span class="text-red-500"><i class="fas fa-heart"></i></span> by Rashid Ali</p></div></div>
       </div>
    </footer>
+
+   <!-- Simple mobile menu toggle script -->
+   <script>
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function toggleMobileMenu() {
+         mobileMenu.classList.toggle('hidden');
+      }
+
+      if (menuBtn) {
+         menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMobileMenu();
+         });
+      }
+
+      // Close mobile menu when clicking a link (for better UX)
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+         link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+         });
+      });
+
+      // Optional: close if clicked outside (simple)
+      document.addEventListener('click', (e) => {
+         if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target) && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+         }
+      });
+   </script>
 </body>
 
 </html>
